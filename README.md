@@ -31,22 +31,22 @@
 <br />
 <div align="center">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/logo.jpg" alt="Logo" width="500" height="500">
+    <img src="images/logo.jpg" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Credit Risk Analysis Lending Club</h3>
 
   <p align="center">
-    project_description
+    * In this project, I will be working with a dataset taken from Kaggle, where I will perform a credit risk analysis. The data provided comes from LendingClub, a financial services company based in San Francisco, California. LendingClub was the first peer-to-peer lending platform to register its offerings as securities with the Securities and Exchange Commission (SEC) and to offer loan trading on a secondary market. The company offers personal loans of up to $40,000, with terms ranging from 24 to 60 months, and operates entirely online, with no physical branches.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -83,9 +83,46 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<br />
+<div align="center">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/logoLC.jpeg" alt="Logo" width="1000" height="500">
+  </a>
+</div>
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+# Description:
+
+* In this project, I will be working with a dataset taken from Kaggle, where I will perform a credit risk analysis. The data provided comes from LendingClub, a financial services company based in San Francisco, California. LendingClub was the first peer-to-peer lending platform to register its offerings as securities with the Securities and Exchange Commission (SEC) and to offer loan trading on a secondary market. The company offers personal loans of up to $40,000, with terms ranging from 24 to 60 months, and operates entirely online, with no physical branches.
+
+* In this project, I will apply the CRISP-DM method, which follows the following steps:
+
+  * 1-**Business understanding**: 
+    
+    What does the business need?
+  
+  * 2-**Data understanding**: 
+    
+    What data do we have / need? Is it clean?
+  
+  * 3-**Data preparation**: 
+    
+    How do we organize the data for modeling?
+  
+  * 4-**Modeling**: 
+    
+    What modeling techniques should we apply?
+  
+  * 5-**Evaluation**: 
+    
+    What best meets the business objectives?
+  
+  * 6-**Deployment**: 
+    
+    How do stakeholders access the results?
+
+* In the first step of EDA (Exploratory Data Analysis), I will proceed to step 3, which is data preparation. The goal of the project is to conduct analyses and develop a model using only the data collected during the loan release process. This dataset has a large number of variables, and I will focus on the information relevant to decision-making during the loan release process. The resulting model will be aimed at predicting both loans that will be paid and those that will not be paid, aiming to improve the bank's performance in both situations.
+
+* The model to be developed will be with PyTorch, where we will create a neural network manually and adjust the parameters and hyperparameters according to the needs of the data in this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
