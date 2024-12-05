@@ -199,29 +199,52 @@ Max Workers: 8
 ###### Additional Resources
 
 * - **Official Documentation**: See the official Databricks documentation for more details and advanced options[1](https://learn.microsoft.com/en-us/azure/databricks/scenarios/quickstart-create-databricks-workspace-vnet-injection).
-* - **Video Tutorials**: There are several video tutorials that can help, such as this [YouTube video](https://www.youtube.com/watch?v=F3cHYiRN2yY) that shows how to create a cluster in the community version of Databricks[2](https://www.youtube.com/watch?v=F3cHYiRN2yY).
 
+### Installation of librarys
 
+1. Install Libraries to the Cluster:
 
-### Installation
+  * After creating the cluster, click on the cluster name to open its settings.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+  *  Go to the Libraries tab.
+
+  * Click Install New.
+
+  * Choose the library source (e.g., PyPI, Maven, CRAN, DBFS, etc.).
+
+  * Follow the instructions to install the desired library. For example, to install a library from PyPI, enter the package name and click Install.
+
+2. threadpoolctl: **PyPI**
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   threadpoolctl==3.5.0
    ```
-3. Install NPM packages
+3. spark-excel_2.12:0.14.0: **Marven**
    ```sh
-   npm install
+   com.crealytics:spark-excel_2.12:0.14.0
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
+4. scikit-learn: **PyPI**
    ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
+   scikit-learn==1.5.2
+   ```
+5. category_encoders: **PyPI**
+   ```sh
+   category_encoders==2.6.3
+   ```
+6. torch: **PyPI**
+   ```sh
+   torch==2.5.1
+   ```
+7. torchmetrics: **PyPI**
+   ```sh
+   torchmetrics==1.4.2
+   ```
+8. xgboost: **PyPI**
+   ```sh
+   xgboost==2.1.0
+   ```
+8. ray[tune]: **PyPI**
+   ```sh
+   ray[tune]==2.38.0
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
