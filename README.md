@@ -145,16 +145,63 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* Data Bricks - This project was developed in the Databricks environment, so the entire project structure is compatible with AzureDatabricks and Databricks. Below I will leave the link to create an account in the Databricks Community where it is free and at no cost and you will be able to run a copy of this project perfectly.
+Link for create acount :
+
+* [![Databricks CM][Azure Databricks CM]][Azure Databricks CM-url]
+
+##### Now that your account is created, you will need to create a cluster in DataBricks. Below is the step-by-step guide to creating the cluster.
+
+###### Step-by-Step Guide to Creating a Cluster in Databricks
+
+* 1 **Access Databricks**:
+  - Log in to your Databricks account.
+
+* 2 **Navigate to the Clusters Section**:
+  - In the side menu, click on **Compute** (or **Clusters**).
+
+* 3 **Create a New Cluster**:
+  - Click on the **Create Cluster** button.
+
+* 4 **Configure the Cluster**:
+  - **Cluster Name**: Give your cluster a name.
+  - **Cluster Mode**: Choose the cluster mode (Standard, High Concurrency, etc.).
+  - **Databricks Runtime Version**: Select the version of Databricks Runtime you want to use.
+  - **Node Type**: Choose the node type (virtual machine) for the workers and the driver. - **Autoscaling**: Enable or disable autoscaling. If enabled, set the minimum and       maximum number of nodes.
+  - **Worker Nodes**: Set the number of worker nodes.
+  - **Driver Node**: Configure the driver node if necessary.
+  - **Version used in this project**: 15.4 LTS (includes Apache Spark 3.5.0, Scala 2.12)
+
+* 5 **Advanced Settings (Optional)**:
+  - **Libraries**: Add libraries that the cluster should load when starting.
+  - **Spark Configurations**: Add Spark-specific configurations.
+  - **Environment Variables**: Set environment variables if necessary.
+
+* 6 **Create the Cluster**:
+  - After configuring all options, click **Create Cluster**.
+
+###### Configuration Example
+
+Here is an example of how to fill in the basic configurations:
+
+```markdown
+Cluster Name: MyCluster
+Cluster Mode: Standard
+Databricks Runtime Version: 10.4 LTS (Scala 2.12, Spark 3.2.1)
+Node Type: Standard_DS3_v2
+Autoscaling: Enabled
+Min Workers: 2
+Max Workers: 8
+```
+
+###### Additional Resources
+
+* - **Official Documentation**: See the official Databricks documentation for more details and advanced options[1](https://learn.microsoft.com/en-us/azure/databricks/scenarios/quickstart-create-databricks-workspace-vnet-injection).
+* - **Video Tutorials**: There are several video tutorials that can help, such as this [YouTube video](https://www.youtube.com/watch?v=F3cHYiRN2yY) that shows how to create a cluster in the community version of Databricks[2](https://www.youtube.com/watch?v=F3cHYiRN2yY).
+
+
 
 ### Installation
 
@@ -322,3 +369,6 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 [Python]: https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
 [Python-url]: https://www.python.org/
+
+[Azure Databricks CM]: https://img.shields.io/badge/Databricks-FF3621?style=for-the-badge&logo=Databricks&logoColor=white
+[Azure Databricks CM-url]: https://community.cloud.databricks.com/
