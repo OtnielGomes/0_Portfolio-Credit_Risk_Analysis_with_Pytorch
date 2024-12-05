@@ -37,7 +37,7 @@
 <h3 align="center"> Credit Risk Analysis - Lending Club </h3>
 
   <p align="center">
-    * In this project, I will be working with a dataset taken from Kaggle, where I will perform a credit risk analysis. The data provided comes from LendingClub, a financial services company based in San Francisco, California. LendingClub was the first peer-to-peer lending platform to register its offerings as securities with the Securities and Exchange Commission (SEC) and to offer loan trading on a secondary market. The company offers personal loans of up to $40,000, with terms ranging from 24 to 60 months, and operates entirely online, with no physical branches.
+    Classification of requested loans using Pytorch as the main classification model
     <br />
     <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch"><strong>Explore the docs »</strong></a>
     <br />
@@ -92,37 +92,35 @@
 
 # Description:
 
-* In this project, I will be working with a dataset taken from Kaggle, where I will perform a credit risk analysis. The data provided comes from LendingClub, a financial services company based in San Francisco, California. LendingClub was the first peer-to-peer lending platform to register its offerings as securities with the Securities and Exchange Commission (SEC) and to offer loan trading on a secondary market. The company offers personal loans of up to $40,000, with terms ranging from 24 to 60 months, and operates entirely online, with no physical branches.
+* This project will be built and implemented using the **Azure Databricks** environment, where classifiers will be built with neural network/machine learning models that will seek to predict whether a loan will be paid or not. The basis of the project will be a PyTorch model that will classify the requested loans. In the final model, a classifier will be created that will use the selected model together with some variables and information from the loan applicant to make the final classification, where the loans will be classified into 4 stages of default risk. According to the defined parameters, the classifier will decide whether the loan should be approved or rejected immediately, or if there is the possibility of a reassessment by the institution's stakeholders.
+
+* In this project, I will work with a dataset taken from Kaggle, where I will perform a credit risk analysis. The data provided comes from LendingClub, a financial services company based in San Francisco, California. LendingClub was the first peer-to-peer lending platform to register its offerings as securities with the Securities and Exchange Commission (SEC) and to offer loan trading on a secondary market. The company offers personal loans of up to $40,000, with terms ranging from 24 to 60 months, and operates entirely online, with no physical branches.
 
 * In this project, I will apply the CRISP-DM method, which follows the following steps:
 
-  * 1-**Business understanding**: 
-    
+  * 1-**Business understanding**:
+  
     What does the business need?
   
-  * 2-**Data understanding**: 
-    
-    What data do we have / need? Is it clean?
+  * 2-**Data understanding**:
   
-  * 3-**Data preparation**: 
-    
+    What data do we have/need? Is it clean?
+  
+  * 3-**Data preparation**:
+  
     How do we organize the data for modeling?
   
-  * 4-**Modeling**: 
-    
+  * 4-**Modeling**:
+  
     What modeling techniques should we apply?
   
-  * 5-**Evaluation**: 
-    
+  * 5-**Evaluation**:
+  
     What best meets the business objectives?
   
-  * 6-**Deployment**: 
-    
+  * 6-**Implementation**:
+  
     How do stakeholders access the results?
-
-* In the first step of EDA (Exploratory Data Analysis), I will proceed to step 3, which is data preparation. The goal of the project is to conduct analyses and develop a model using only the data collected during the loan release process. This dataset has a large number of variables, and I will focus on the information relevant to decision-making during the loan release process. The resulting model will be aimed at predicting both loans that will be paid and those that will not be paid, aiming to improve the bank's performance in both situations.
-
-* The model to be developed will be with PyTorch, where we will create a neural network manually and adjust the parameters and hyperparameters according to the needs of the data in this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
