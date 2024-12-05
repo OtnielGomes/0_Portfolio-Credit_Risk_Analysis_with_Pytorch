@@ -86,7 +86,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/logoLC.jpeg" alt="Logo Lendin Club" width="800" height="500">
+    <img src="images/logoLC.jpeg" alt="Logo Lendin Club" width="700" height="350">
   </a>
 </div>
 
@@ -127,9 +127,11 @@
 
 
 ### Built With
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
+* [![Databricks][Azure Databricks]][Azure Databricks-url]
+* [![Torch][PyTorch]][PyTorch-url]
+* [![Sklearn][scikit-learn]][scikit-learn-url]
+* [![[Apache][Apache Spark]][Apache Spark-url]
+* [![PD][Pandas]][Pandas-url]
 * [![Vue][Vue.js]][Vue-url]
 * [![Angular][Angular.io]][Angular-url]
 * [![Svelte][Svelte.dev]][Svelte-url]
@@ -291,3 +293,22 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+
+
+
+
+[PyTorch]: https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white
+[PyTorch-url]: https://pytorch.org
+
+[scikit-learn]: https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white
+[scikit-learn-url]: https://scikit-learn.org/stable/
+
+[Azure Databricks]: https://img.shields.io/badge/Databricks-FF3621?style=for-the-badge&logo=Databricks&logoColor=white
+[Azure Databricks-url]:  https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account?icid=databricks
+
+[Apache Spark]: https://img.shields.io/badge/Apache%20Spark-FDEE21?style=flat-square&logo=apachespark&logoColor=black
+[Apache Spark-url]: https://spark.apache.org/
+
+[Pandas]: https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white
+[Pandas]: https://pandas.pydata.org/
+
