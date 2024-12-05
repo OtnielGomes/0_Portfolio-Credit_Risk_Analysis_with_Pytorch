@@ -147,7 +147,7 @@
 
 ### Prerequisites
 
-* Data Bricks - This project was developed in the Databricks environment, so the entire project structure is compatible with AzureDatabricks and Databricks. Below I will leave the link to create an account in the Databricks Community where it is free and at no cost and you will be able to run a copy of this project perfectly.
+* Data Bricks - This project was developed in the Databricks environment, so the entire project structure is compatible with AzureDatabricks and Databricks Community. Below I will leave the link to create an account in the Databricks Community where it is free and at no cost and you will be able to run a copy of this project perfectly.
 Link for create acount :
 
 * [![Databricks CM][Azure Databricks CM]][Azure Databricks CM-url]
@@ -198,7 +198,7 @@ Max Workers: 8
 
 ###### Additional Resources
 
-* - **Official Documentation**: See the official Databricks documentation for more details and advanced options[1](https://learn.microsoft.com/en-us/azure/databricks/scenarios/quickstart-create-databricks-workspace-vnet-injection).
+* **Official Documentation**: See the official Databricks documentation for more details and advanced options[1](https://learn.microsoft.com/en-us/azure/databricks/scenarios/quickstart-create-databricks-workspace-vnet-injection).
 
 ### Installation of librarys
 
@@ -252,7 +252,7 @@ Max Workers: 8
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## The Project
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
