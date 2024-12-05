@@ -182,23 +182,10 @@ Link for create acount :
 * 6 **Create the Cluster**:
   - After configuring all options, click **Create Cluster**.
 
-###### Configuration Example
+* ###### Additional Resources
 
-Here is an example of how to fill in the basic configurations:
+* **Official Documentation**: See the official Databricks documentation for more details and advanced options: [Click here](https://learn.microsoft.com/en-us/azure/databricks/scenarios/quickstart-create-databricks-workspace-vnet-injection).
 
-```markdown
-Cluster Name: MyCluster
-Cluster Mode: Standard
-Databricks Runtime Version: 10.4 LTS (Scala 2.12, Spark 3.2.1)
-Node Type: Standard_DS3_v2
-Autoscaling: Enabled
-Min Workers: 2
-Max Workers: 8
-```
-
-###### Additional Resources
-
-* **Official Documentation**: See the official Databricks documentation for more details and advanced options[1](https://learn.microsoft.com/en-us/azure/databricks/scenarios/quickstart-create-databricks-workspace-vnet-injection).
 
 ### Installation of librarys
 
