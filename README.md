@@ -1,4 +1,4 @@
-++<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
@@ -152,87 +152,89 @@ Link for create acount :
 
 * [![Databricks CM][Azure Databricks CM]][Azure Databricks CM-url]
 
-##### Now that your account is created, you will need to create a cluster in DataBricks. Below is the step-by-step guide to creating the cluster.
+* ##### Now that your account is created, you will need to create a cluster in DataBricks. Below is the step-by-step guide to creating the cluster.
 
-###### Step-by-Step Guide to Creating a Cluster in Databricks
+* ###### Step-by-Step Guide to Creating a Cluster in Databricks
 
-* 1 **Access Databricks**:
-  - Log in to your Databricks account.
+   1-**Access Databricks**:
+    - Log in to your Databricks account.
 
-* 2 **Navigate to the Clusters Section**:
-  - In the side menu, click on **Compute** (or **Clusters**).
+   2-**Navigate to the Clusters Section**:
+    - In the side menu, click on **Compute** (or **Clusters**).
 
-* 3 **Create a New Cluster**:
-  - Click on the **Create Cluster** button.
+   3-**Create a New Cluster**:
+    - Click on the **Create Cluster** button.
 
-* 4 **Configure the Cluster**:
-  - **Cluster Name**: Give your cluster a name.
-  - **Cluster Mode**: Choose the cluster mode (Standard, High Concurrency, etc.).
-  - **Databricks Runtime Version**: Select the version of Databricks Runtime you want to use.
-  - **Node Type**: Choose the node type (virtual machine) for the workers and the driver. - **Autoscaling**: Enable or disable autoscaling. If enabled, set the minimum and       maximum number of nodes.
-  - **Worker Nodes**: Set the number of worker nodes.
-  - **Driver Node**: Configure the driver node if necessary.
-  - **Version used in this project**: 15.4 LTS (includes Apache Spark 3.5.0, Scala 2.12)
+   4-**Configure the Cluster**:
+    - **Cluster Name**: Give your cluster a name.
+    - **Cluster Mode**: Choose the cluster mode (Standard, High Concurrency, etc.).
+    - **Databricks Runtime Version**: Select the version of Databricks Runtime you want to use.
+    - **Node Type**: Choose the node type (virtual machine) for the workers and the driver. - **Autoscaling**: Enable or disable autoscaling. If enabled, set the minimum and       maximum number of nodes.
+    - **Worker Nodes**: Set the number of worker nodes.
+    - **Driver Node**: Configure the driver node if necessary.
+    - **Version used in this project**: 15.4 LTS (includes Apache Spark 3.5.0, Scala 2.12)
 
-* 5 **Advanced Settings (Optional)**:
-  - **Libraries**: Add libraries that the cluster should load when starting.
-  - **Spark Configurations**: Add Spark-specific configurations.
-  - **Environment Variables**: Set environment variables if necessary.
+   5-**Advanced Settings (Optional)**:
+    - **Libraries**: Add libraries that the cluster should load when starting.
+    - **Spark Configurations**: Add Spark-specific configurations.
+    - **Environment Variables**: Set environment variables if necessary.
 
-* 6 **Create the Cluster**:
-  - After configuring all options, click **Create Cluster**.
+   6-**Create the Cluster**:
+    - After configuring all options, click **Create Cluster**.
 
-* ###### Additional Resources
+  * #### Additional Resources
 
-* **Official Documentation**: See the official Databricks documentation for more details and advanced options: [Click here](https://learn.microsoft.com/en-us/azure/databricks/scenarios/quickstart-create-databricks-workspace-vnet-injection).
+    * **Official Documentation**: See the official Databricks documentation for more details and advanced options: [Click here](https://learn.microsoft.com/en-us/azure/databricks/scenarios/quickstart-create-databricks-workspace-vnet-injection).
 
 
 ### Installation of librarys
 
-1. Install Libraries to the Cluster:
+* Install Libraries to the Cluster:
 
-  * After creating the cluster, click on the cluster name to open its settings.
+    * After creating the cluster, click on the cluster name to open its settings.
 
-  *  Go to the Libraries tab.
+    *  Go to the Libraries tab.
 
-  * Click Install New.
+    * Click Install New.
 
-  * Choose the library source (e.g., PyPI, Maven, CRAN, DBFS, etc.).
+    * Choose the library source (e.g., PyPI, Maven, CRAN, DBFS, etc.).
 
-  * Follow the instructions to install the desired library. For example, to install a library from PyPI, enter the package name and click Install.
+    * Follow the instructions to install the desired library. For example, to install a library from PyPI, enter the package name and click Install.
 
-2. threadpoolctl: **PyPI**
-   ```sh
-   threadpoolctl==3.5.0
-   ```
-3. spark-excel_2.12:0.14.0: **Marven**
-   ```sh
-   com.crealytics:spark-excel_2.12:0.14.0
-   ```
-4. scikit-learn: **PyPI**
-   ```sh
-   scikit-learn==1.5.2
-   ```
-5. category_encoders: **PyPI**
-   ```sh
-   category_encoders==2.6.3
-   ```
-6. torch: **PyPI**
-   ```sh
-   torch==2.5.1
-   ```
-7. torchmetrics: **PyPI**
-   ```sh
-   torchmetrics==1.4.2
-   ```
-8. xgboost: **PyPI**
-   ```sh
-   xgboost==2.1.0
-   ```
-8. ray[tune]: **PyPI**
-   ```sh
-   ray[tune]==2.38.0
-   ```
+* Librares:
+  
+  1-threadpoolctl: **PyPI**
+     ```sh
+     threadpoolctl==3.5.0
+     ```
+  2-spark-excel_2.12:0.14.0: **Marven**
+     ```sh
+     com.crealytics:spark-excel_2.12:0.14.0
+     ```
+  3-scikit-learn: **PyPI**
+     ```sh
+     scikit-learn==1.5.2
+     ```
+  4-category_encoders: **PyPI**
+     ```sh
+     category_encoders==2.6.3
+     ```
+  5-torch: **PyPI**
+     ```sh
+     torch==2.5.1
+     ```
+  6-torchmetrics: **PyPI**
+     ```sh
+     torchmetrics==1.4.2
+     ```
+  7-xgboost: **PyPI**
+     ```sh
+     xgboost==2.1.0
+     ```
+  8-ray[tune]: **PyPI**
+     ```sh
+     ray[tune]==2.38.0
+     ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
