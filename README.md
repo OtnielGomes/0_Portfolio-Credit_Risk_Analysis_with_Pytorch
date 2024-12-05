@@ -31,10 +31,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/logo.jpg" alt="Logo" width="80" height="80">
+    <img src="images/logo.jpg" alt="Logo" width="200" height="100">
   </a>
 
-<h3 align="center">Credit Risk Analysis Lending Club</h3>
+<h3 align="center">Credit Risk Analysis - Lending Club</h3>
 
   <p align="center">
     * In this project, I will be working with a dataset taken from Kaggle, where I will perform a credit risk analysis. The data provided comes from LendingClub, a financial services company based in San Francisco, California. LendingClub was the first peer-to-peer lending platform to register its offerings as securities with the Securities and Exchange Commission (SEC) and to offer loan trading on a secondary market. The company offers personal loans of up to $40,000, with terms ranging from 24 to 60 months, and operates entirely online, with no physical branches.
@@ -86,7 +86,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/logoLC.jpeg" alt="Logo" width="1000" height="500">
+    <img src="images/logoLC.jpeg" alt="Logo Lendin Club" width="1000" height="500">
   </a>
 </div>
 
