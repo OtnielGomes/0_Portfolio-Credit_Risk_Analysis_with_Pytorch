@@ -317,7 +317,7 @@ The payment statuses below will not be used because they do not comply with the 
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/status_payments_initial.png" alt="Status Payments Initial" width="700" height="500">
+    <img src="images/status_payments_initial.png" alt="Status Payments Initial" width="700" height="400">
   </a>
 </div>
 <br />
@@ -509,7 +509,7 @@ sorted_dataset.select('index', 'loan_amnt', 'loan_status', 'mo_issue_d') \
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/train_set_status.png" alt="Train set status" width="700" height="500">
+    <img src="images/train_set_status.png" alt="Train set status" width="700" height="400">
   </a>
 </div>
 <br />
@@ -517,7 +517,7 @@ sorted_dataset.select('index', 'loan_amnt', 'loan_status', 'mo_issue_d') \
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/test_set_status.png" alt="Test set status" width="700" height="500">
+    <img src="images/test_set_status.png" alt="Test set status" width="700" height="400">
   </a>
 </div>
 <br />
@@ -576,6 +576,16 @@ It is possible to note that loans that were **fully paid** generate a gross inte
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
     <img src="images/hist_discret_variables.png" alt="Histogran discret variables.png" width="900" height="350">
+  </a>
+</div>
+<br />
+
+## Cheking numerical continuos variables
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/hist_continuos_variables.png" alt="Histogran continuos variables.png" width="900" height="1100">
   </a>
 </div>
 <br />
