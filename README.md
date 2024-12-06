@@ -280,7 +280,7 @@ The other payment statuses have not yet had final payment completion because the
 
 * Offer more services to this borrower.
 
-# 2 - Data Understanding
+# 2-Data Understanding
 
 ## The dataset
 
@@ -315,15 +315,180 @@ The payment statuses below will not be used because they do not comply with the 
 * Does not meet the credit policy. Status:Charged Off
 
 <br />
-<div align="center">
+<div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="status_payments_initial.png" alt="Status Payments Initial" width="700" height="350">
+    <img src="images/status_payments_initial.png" alt="Status Payments Initial" width="700" height="350">
   </a>
 </div>
+<br />
 
+
+## Classifying variables:
+
+#### Concepts for Classification of variables according to statistics:
+
+**Quantitative or numerical variables**:
+
+* *Discrete*: only take integer values
+
+* *Continuous*: assumes any value in the range of real numbers
+
+**Qualitative or categorical variables**:
+
+* *Nominals*: when categories do not have a natural order
+
+* *Ordinals*: when categories can be ordered.
+
+```
+  # Categorical Variables
+  
+  categorical_nominals =  [
+     'verification_status', 'emp_title', 'home_ownership', 'purpose', 'title', 'addr_state', 'initial_list_status', 'loan_status', 
+  
+  ]
+  
+  categorical_ordinals = [ 
+     'grade', 'sub_grade', 'term', 'emp_length', 
+  ]
+  
+  # Numerical Variables
+  
+  numerical_discrete = [
+      'delinq_2yrs', 'earliest_cr_line', 'inq_last_6mths', 'open_acc', 'pub_rec', 'total_acc', 'acc_now_delinq', 'collections_12_mths_ex_med', 'issue_d'
+  ]
+  
+  
+  numerical_continuous = [
+     'loan_amnt', 'funded_amnt', 'int_rate', 'installment', 'annual_inc', 'dti', 'revol_bal', 'revol_util', 'tot_coll_amt', 'tot_cur_bal', 'total_rev_hi_lim',
+  
+  ]
+```
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/classification_variables.png" alt="Classification Variables" width="800" height="500">
+  </a>
+</div>
+<br />
+
+# 3 - Data Preparation
+
+* In this initial step, I will clean the data. We have a lot of invalid data. Initially, I will start by checking the data typing: continuous numeric data will be of type double, and discrete numeric data will be of type integer. This approach will already do a great deal of removing invalid values ​​from the numeric columns. In addition, categorical variables will be checked according to their respective valid categories. 
+
+* Initially, all invalid values ​​will be marked as null, so that at the end of the analysis, I can decide whether to remove them or fill them with some data imputation technique.
+### Note:
+
+* The initial data cleaning was performed with the function above.
+
+* **Discrete numeric variables**:
+
+  * These variables were converted to the **'Integer'** type, and the data was filtered in which the values ​​present in the column that were not of the 'Integer' type were removed and filled as null. For example, if a value in a column was 2.3, this value would be considered null, taking into account that discrete variables cannot be partitioned into real numbers.
+
+* **Continuous numeric variables**:
+
+  * They were also converted to their corresponding type. Therefore, the data was filtered in which the values ​​present in the column that were not of the **'Double'** type were removed and filled as null. This approach has already managed to solve the problem of string values ​​that were present in the numeric columns.
+
+* **Categorical/dummy variables**:
+
+  * The data was filtered using the dictionary with valid categories for each variable, and if there were values ​​that were outside these parameters, they were removed and filled in as null.
+
+## EDA 
+
+#### Next steps:
+
+#### Feature selection:
+
+* In this step, I will select features using two approaches:
+
+  * **First**, I will consider the **context** of each of the variables and their importance in the records of this dataset.
+
+  * **Second**, I will evaluate the correlation and relationship of the features with the target variable, which is **loan_status**.
+
+* Based on these points and concepts, I will choose the features that add value to the solution of this problem.
+
+* To calculate the correlation between the columns, I will define a function to index the categorical columns. I will use the correlation to check for numerical variables, while for categorical variables I will use the p-value along with the chi-square (chi2) test.
+
+#### Splitting the training and testing data
+
+* From here on, all the analyses will be based on our training dataset, which will be approximately 80% of the total dataset. I will choose to separate from this point on to avoid leaking **test data**, since this data cannot be influenced by the analysis or data modeling that will be applied to the training data.
+
+* Since this is a credit risk analysis, it is important to consider that the division of the data must take into account the chronological order of the records. This is important to verify the performance of the model with past data (loans that were used for training) in relation to future data (loans that will be requested in the future).
+
+* In other words, this step is important to verify how well the model trained with past data can predict the default of credit applicants at a future point in time.
+
+* Then I will use the **mo_issue_d** variable to classify the records in chronological order, and the division of our data is as follows:
+
+  * **trainset**: Approximately 80% of the records being the oldest and in chronological order.
+
+  * **testset**: Approximately 20% of the records being the newest and in chronological order.
+
+* I will make a small adjustment so that the data is distributed more organically, I will be looking for a margin where we have a time point between the training data and another for the test data. Therefore, with this adjustment we will not have loans with the same number of months in the training and testing data.
+
+### Separating training and test data
+
+```
+  # Sorting the data
+sorted_dataset = df
+sorted_dataset = sorted_dataset.orderBy('mo_issue_d', ascending = False)
+
+# Creating an id for each record in an orderly manner
+sorted_dataset = sorted_dataset.withColumn('index', F.monotonically_increasing_id()) 
+
+sorted_dataset.select('index', 'loan_amnt', 'loan_status', 'mo_issue_d') \
+    .limit(10) \
+    .display()
+```
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/sorting_data.png" alt="Sorting Data" width="1000" height="400">
+  </a>
+</div>
+<br />
+
+#### Looking for a margin for data division
+
+```
+# Calculating the limit for division
+  
+  total_data = sorted_dataset.count()
+  
+  train_size = int(total_data * 0.8)
+  
+  # Partitioning the data
+  # trainset
+  train_m = sorted_dataset.filter(F.col('index') < train_size)
+  
+  # testset
+  test_m = sorted_dataset.filter(F.col('index') >= train_size)
+```
+#### Train margin
+
+```
+  train_m.select('mo_issue_d').describe().display()
+```
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/train_m.png" alt="Train Margin" width="1000" height="300">
+  </a>
+</div>
+<br />
+
+#### Test margin
+
+```
+  test_m.select('mo_issue_d').describe().display()
+```
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/test_m.png" alt="Test Margin.png" width="1000" height="300">
+  </a>
+</div>
+<br />
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ROADMAP -->
