@@ -86,7 +86,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/logoLC.jpeg" alt="Logo Lendin Club" width="700" height="350">
+    <img src="images/logoLC.jpeg" alt="Logo Lending Club" width="700" height="350">
   </a>
 </div>
 
@@ -242,6 +242,84 @@ Link for create acount :
 
 <!-- USAGE EXAMPLES -->
 ## The Project
+
+# 1-Business Understanding
+
+## Lending Club
+
+LendingClub is a company that specializes in providing online loans, which further reinforces the need for an accurate assessment during the analysis of the approval of requested loans.
+
+During a loan application, the company makes only two decisions: grant the loan to the applicant or block the release of the loan. This decision is based on the data present in the registry and the information provided by the potential borrower.
+
+We will only use the records with the following final payment statuses:
+
+* Fully Paid
+* Downloaded
+
+The other payment statuses have not yet had final payment completion because they have not yet been completed, so there is no possibility of classifying them.
+
+#### What is the objective of this project?
+
+* A machine learning model will be created that seeks to make predictions that during the loan application will indicate whether the borrower will be a good payer or not.
+
+* The main objective is to create analyses that use only the information collected at the time of the loan application. The model focuses on preventing the release of loans to potentially defaulting borrowers, using only the variables available at the time of the request.
+
+* I will seek to generate several insights so that we have information about the institution's objective, which is to reduce unpaid loans and potential losses in relation to recent years.
+
+#### To deal with default, we have some possible solutions:
+
+* Do not release loans classified as risky loans that will potentially not be paid.
+
+* If released, charge a higher interest rate for these cases.
+
+#### For loans classified as low-risk loans that will potentially be fully paid, we can consider:
+
+* In addition to releasing the loans, increase the loan amount in these cases.
+
+* Reduce the interest rate, aiming to improve the relationship with the target customer and increase the company's profitability with higher-value loans.
+
+* Offer more services to this borrower.
+
+# 2 - Data Understanding
+
+## The dataset
+
+**We have records from 12-2006 to 12-2015 with information about the payment history of this institution's customers**
+
+**Data file**: - loan.csv
+
+**Data dictionary**: - LoanStats tab in LCDataDictionary.xlsx
+
+**Target dependent variable**: - 'loan_status'
+
+**Source** : https://www.kaggle.com/datasets/ranadeep/credit-risk-dataset/data?select=loan
+
+## Adjusting the dataset for the project
+
+* Before starting the analyzes and training the models, the data set will be adjusted to the proposal that will be the objective of this project. The objective is to create one or more models capable of predicting whether the borrower will pay all the loan installments or become a defaulter, failing to pay the loan.
+
+* From now on, the dataset will only be separated with records that correspond to loans that have already been closed. The loan_status variable allows you to define the payment statuses that characterize these loans. 
+
+* They are: 
+
+* **Fully Paid**
+
+* **Charged Off**
+
+##### Note:
+
+The payment statuses below will not be used because they do not comply with the institution's credit policy. Since this is a credit risk analysis model, it is important to build it now so that it adapts to the loan requests that will be made by the institution in the future.
+
+* Does not meet the credit policy. Status:Fully Paid
+
+* Does not meet the credit policy. Status:Charged Off
+
+<br />
+<div align="center">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="status_payments_initial.png" alt="Status Payments Initial" width="700" height="350">
+  </a>
+</div>
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
