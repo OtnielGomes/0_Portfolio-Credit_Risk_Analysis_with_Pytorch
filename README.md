@@ -928,6 +928,67 @@ The **score_cr** variable is based on the rules of the FICO Score. This score ta
 ## Preprocessing
 
 ### Categorical Features
+```
+  # Ordinal features
+  ordinal_features = [
+       'term', 'sub_grade', 'expen_cr_inc'  
+  ]
+  # Manual adjustment
+  ordinal_emp_length = ['emp_length']
+  
+  # Nominal Features
+  
+  nominal_features = ['home_ownership', 'purpose', 'initial_list_status', 'tot_coll_amt', 'delinq_2yrs', 'pub_rec', 'inq_last_6mths',]
+```
+
+### Numerical Features
+```
+  num_features = [
+    'loan_amnt', 'int_rate', 'dti', 'open_acc', 'revol_util', 'total_acc','tot_cur_bal', 'total_rev_hi_lim', 'real_income', 'ability_to_pay', 'score_cr',   'mo_earliest_cr_line',
+  ]
+```
+
+### Preprocessor
+```
+  # Categorical ordinal
+  categorical_ordinal = Pipeline(
+      steps = [
+          ('ordinal_encoder', OrdinalEncoder()),
+          ('min_max_scaler', MinMaxScaler()),
+      ]
+  )
+  # emp_length
+  emp_length_ordinal = Pipeline(
+      steps = [
+          ('ordinal_encoder', OrdinalEncoder(categories = [['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']])),
+          ('min_max_scaler', MinMaxScaler()),
+      ]
+  )
+  
+  
+  # Categorical Nominal
+  categorical_nominal = Pipeline(
+      steps = [
+          ('target_encoder', TargetEncoder(cols = nominal_features)),
+          ('min_max_scaler', MinMaxScaler()),
+      ]
+  )
+  
+  
+  # Column Transformer
+  preprocessor = ColumnTransformer(
+      transformers = [
+          ('ordinal', categorical_ordinal, ordinal_features),
+          ('ord_emp_length', emp_length_ordinal, ordinal_emp_length),
+          ('target', categorical_nominal, nominal_features),
+          ('numerical_features', MinMaxScaler(), num_features),
+      ],
+      remainder = 'passthrough'
+  )
+```
+## Training models
+
+### Random Forest Classifier
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- ROADMAP -->
