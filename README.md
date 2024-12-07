@@ -371,7 +371,7 @@ The payment statuses below will not be used because they do not comply with the 
 </div>
 <br />
 
-# 3 - Data Preparation
+# 3-Data Preparation
 
 * In this initial step, I will clean the data. We have a lot of invalid data. Initially, I will start by checking the data typing: continuous numeric data will be of type double, and discrete numeric data will be of type integer. This approach will already do a great deal of removing invalid values ​​from the numeric columns. In addition, categorical variables will be checked according to their respective valid categories. 
 
@@ -470,7 +470,7 @@ sorted_dataset.select('index', 'loan_amnt', 'loan_status', 'mo_issue_d') \
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/train_m.png" alt="Train Margin" width="1000" height="300">
+    <img src="images/train_m.png" alt="Train Margin" width="1000" height="250">
   </a>
 </div>
 <br />
@@ -483,7 +483,7 @@ sorted_dataset.select('index', 'loan_amnt', 'loan_status', 'mo_issue_d') \
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/test_m.png" alt="Test Margin" width="1000" height="300">
+    <img src="images/test_m.png" alt="Test Margin" width="1000" height="250">
   </a>
 </div>
 <br />
@@ -575,7 +575,7 @@ It is possible to note that loans that were **fully paid** generate a gross inte
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/hist_discret_variables.png" alt="Histogran discret variables.png" width="900" height="350">
+    <img src="images/hist_discret_variables.png" alt="Histogran discret variables" width="900" height="350">
   </a>
 </div>
 <br />
@@ -585,16 +585,351 @@ It is possible to note that loans that were **fully paid** generate a gross inte
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/hist_continuos_variables.png" alt="Histogran continuos variables.png" width="900" height="1100">
+    <img src="images/hist_continuos_variables.png" alt="Histogran continuos variables" width="900" height="1100">
   </a>
 </div>
 <br />
 
+## Cheking categorical  variables
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/count_cat_variables.png" alt="Count cat variables" width="900" height="1100">
+  </a>
+</div>
+<br />
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Cheking the locations of the institution's customers
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/fully_paid_regions.png" alt="Fully paid regions" width="900" height="500">
+  </a>
+</div>
+<br />
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/charged_off_regions.png" alt="Charged off regions" width="900" height="500">
+  </a>
+</div>
+<br />
+
+## Cheking correlations variables
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/correlation_variables.png" alt="Correlation variables" width="900" height="500">
+  </a>
+</div>
+<br />
+
+## Creating new features
+* This dataset has some data that are not viable for training a machine learning model, due to the fact that they **have no relationships with the target variable** and, in some cases, due to the **lack of diversity in the numbers**, since most of the values ​​are **zero**.
+
+* We also have some variables with a very large number of null data that, contextually, would be of great value for our analyses, but because they **do not have even 50% of the valid data**, they were not added to the analyses and training. Due to these facts and characteristics present in this dataset, I will choose to explore the data used in the analyses a little more and look for new possibilities and combination of values ​​for the existing variables.
+
+* Therefore, I will explore new possibilities with our data and check the possibility of combining some characteristics to generate new variables, in order to add information to our data.
+
+### Real income
+I will be calculating the annual income considering the **DTI** (debt to equity ratio). I will subtract the borrower’s debts and consider only his/her net salary, with debts and liabilities already discounted.
+
+Dti formula:
+
+$$ DTI = {\frac{\text{ Total Debts }}{\text{ Total Income  }}{\text{ x 100 }}} $$
+
+Real Income formula:
+
+$$ Real Income = {\text{Annual Income - }} \frac{\text{( Annual Income x DTI )}}{\text{100}}$$
+
+```
+  data_corr = data_corr.withColumn('real_income', F.round((F.col('annual_inc') - (F.col('annual_inc') * F.col('dti')) / 100), 2))
+```
+
+### Ability to pay
+I am creating a new column that will interact with the previously created column called **real_income**. This new column will calculate the impact of the monthly installments on the borrower’s monthly income. The calculation will be done as follows: first, I will divide the **real_income by 12**, converting it from annual income to monthly income. Then, I will apply a formula similar to the ‘DTI’ (debt-to-income) calculation to get the impact of the installment on the borrower’s monthly income. I will do this by **dividing the installment amount by the real_income and then multiplying it by 100**. This way, we will get the impact of the installment on the borrower’s monthly income as a percentage.
+
+Ability To Pay formula:
+
+$$ Ability To Pay = \frac{\text{Installment}} {\frac{\text{Real Income }}{\text{12 Months}}}{\text{ x 100}}$$
+```
+  data_corr = data_corr.withColumn('ability_to_pay', F.round(((F.col('installment') / (F.col('real_income') / 12)  * 100 )), 2))
+```
+### Expenses credit rotative vs Income
+
+The **revol_bal** variable: refers to the borrower's revolving balance, which is the amount unpaid at the end of the credit card billing cycle. In other words, it is the amount of debt that remains after the minimum or partial payment of a credit card bill.
+
+Although our **revol_bal** variable has shown a low correlation with our payment status, it provides us with very important information to assess the financial health of our borrowers. With this, it was possible to create a new variable that calculates the borrower's monthly income and then the percentage of monthly income committed to the borrower's current revolving balance.
+
+* I then created a new variable that classifies this as follows:
+
+* **A**: borrowers with 50% or less of their monthly income committed to their current revolving balance.
+
+* **B**: borrowers with more than 50% to 120% of their monthly income committed to their current revolving balance.
+
+* **C**: borrowers with more than 120% to 300% of their monthly income committed to their current revolving balance.
+
+* **D**: borrowers with more than 300% of their monthly income committed to their current revolving balance.
+
+Expenses credit rotative vs Income formula:
+
+$$ Expen Cr Inc = \frac{\text{Revol Bal}} {\frac{\text{Anual Income }}{\text{12 Months}}}{\text{ <= Income Commitment Limit }}$$
+
+```
+  data_corr = data_corr.withColumn('mo_income', F.round(F.col('annual_inc') / 12, 2)) \
+    .withColumn('expen_cr_inc', F.when((F.round(F.col('revol_bal') / (F.col('mo_income')), 2) <= 0.5) , 'A').otherwise(None)) \
+    .withColumn('expen_cr_inc', F.when((F.col('revol_bal') / (F.col('mo_income')) > 0.5) & 
+                                       (F.col('revol_bal') / (F.col('mo_income')) <= 1.2), 'B').otherwise(F.col('expen_cr_inc'))) \
+    .withColumn('expen_cr_inc', F.when((F.col('revol_bal') / (F.col('mo_income')) > 1.2) & 
+                                       (F.col('revol_bal') / (F.col('mo_income')) <= 3), 'C').otherwise(F.col('expen_cr_inc'))) \
+    .withColumn('expen_cr_inc', F.when(F.col('revol_bal') / (F.col('mo_income')) > 3 , 'D').otherwise(F.col('expen_cr_inc')))
+```
+
+### Score_cr
+
+The **score_cr** variable is based on the rules of the FICO Score. This score takes into account some information about the borrower's financial health and generates a score.
+
+*Here are the FICO Score scoring rules:*
+
+* **Payment history (35%)**
+  * The first thing any lender wants to know is whether you have paid previous credit accounts on time. This helps the lender figure out how much risk they will take on granting you credit. This is the most important factor in a FICO score.
+
+  * *Columns in the dataset*: 'delinq_2yrs', 'pub_rec', 'tot_coll_amt'.
+
+* **Amounts owed (30%)**
+  * Having credit accounts and owing money on them does not necessarily mean you are a high-risk borrower with a low FICO score. However, if you’re using too much of your available credit, it could indicate that you’re overextended — and lenders may interpret this to mean that you’re at higher risk of defaulting.
+
+  * *Columns in the dataset*: 'expen_cr_inc', 'revol_util', 'dti'
+
+* **Length of credit history (15%)**
+  * In general, having a longer credit history is positive for your FICO Scores, but it’s not necessary for a good credit score. How long ago specific credit accounts were established. How long it’s been since you used certain accounts
+
+  * *Column in the dataset*: 'mo_earliest_cr_line'
+
+* **Credit mix (10%)**
+  * FICO Scores will consider your mix of credit cards, retail accounts, installment loans, finance company accounts, and mortgage loans. Don’t worry, you don’t need to have one of each. 
+
+  * *Column in the dataset*: 'total_acc'
+
+* **New credit (10%)**
+  * Research shows that opening multiple credit accounts in a short space of time poses a greater risk – especially for people who don't have a long credit history.
+
+  * *Columns in the dataset*: 'open_acc', 'inq_last_6mths'
+
+```
+  # Total points: 1000
+  # Payment history 35% of points: 350.0
+  # Amounts due 30% of points: 300.0
+  # Length of credit history 15% of points: 150.0
+  # Credit mix 10% of points: 100.0
+  # New credit 10% of points: 100.0
+
+  # Payment history: 350 points divided by 3 features('delinq_2yrs', 'collections_12_mths_ex_med', 'tot_coll_amt') = 166.66.
+  weigth_pay_history = (350 / 3)
+
+  # Amounts due: 350 points divided by 3 features('expen_cr_inc', 'revol_util', 'dti') = 100.
+  weigth_amnt_due = (300 / 3)
+  
+  # Length of credit: 150 points only feature('credit_time') = 150.
+  weigth_length_cr = 150
+  
+  # Credit mix: 100 points only feature('total_acc') = 100.
+  weigth_cr_mix = 100
+  
+  # New credit: 100 points divided by 2 features('open_acc', 'inq_last_6mths') = 50.
+  weigth_new_cr = (100 / 2)
+
+  data_corr = data_corr.withColumn('score_cr', F.lit(0)) \
+      .withColumn('score_cr', F.when(F.col('delinq_2yrs') == 0, 
+                                     F.col('score_cr') + (weigth_pay_history)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('delinq_2yrs') == 1, 
+                                     F.col('score_cr') + (weigth_pay_history / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('pub_rec') == 0, 
+                                     F.col('score_cr') + (weigth_pay_history)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('pub_rec') == 1, 
+                                     F.col('score_cr') + (weigth_pay_history / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('tot_coll_amt') == 0, 
+                                     F.col('score_cr') + (weigth_pay_history)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('tot_coll_amt') == 1, 
+                                     F.col('score_cr') + (weigth_pay_history / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('expen_cr_inc') == 'A', 
+                                     F.col('score_cr') + (weigth_amnt_due)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('expen_cr_inc') == 'B', 
+                                     F.col('score_cr') + (weigth_amnt_due / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('expen_cr_inc') == 'C', 
+                                     F.col('score_cr') + (weigth_amnt_due / 3)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('expen_cr_inc') == 'D', 
+                                     F.col('score_cr') + (weigth_amnt_due / 4)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('dti') <= 10, 
+                                     F.col('score_cr') + (weigth_amnt_due)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(((F.col('dti') <= 20) & ( F.col('dti') > 10)), 
+                                     F.col('score_cr') + (weigth_amnt_due / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(((F.col('dti') <= 30) & (F.col('dti') > 20)), 
+                                     F.col('score_cr') + (weigth_amnt_due / 3)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('dti') > 30, 
+                                     F.col('score_cr') + (weigth_amnt_due / 4)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('revol_util') <= 30, 
+                                     F.col('score_cr') + (weigth_amnt_due)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(((F.col('revol_util') <= 60) & ( F.col('revol_util') > 30)), 
+                                     F.col('score_cr') + (weigth_amnt_due / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(((F.col('revol_util') <= 90) & (F.col('revol_util') > 60)), 
+                                     F.col('score_cr') + (weigth_amnt_due / 3)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('revol_util') > 90, 
+                                     F.col('score_cr') + (weigth_amnt_due / 4)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('mo_earliest_cr_line') > 150, 
+                                     F.col('score_cr') + (weigth_length_cr)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('mo_earliest_cr_line') <= 150, 
+                                     F.col('score_cr') + (weigth_length_cr / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('total_acc') > 20, 
+                                     F.col('score_cr') + (weigth_cr_mix)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('total_acc') <= 20, 
+                                     F.col('score_cr') + (weigth_cr_mix / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('open_acc') <= 10, 
+                                     F.col('score_cr') + (weigth_new_cr)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('open_acc') > 10, 
+                                     F.col('score_cr') + (weigth_new_cr / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('inq_last_6mths') == 0, 
+                                     F.col('score_cr') + (weigth_new_cr)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.when(F.col('inq_last_6mths') == 1, 
+                                     F.col('score_cr') + (weigth_new_cr / 2)).otherwise(F.col('score_cr'))) \
+      .withColumn('score_cr', F.round(F.col('score_cr'), 2))
+```
+
+### Viewing the new features
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/count_news_variables.png" alt="Count news variables" width="500" height="300">
+  </a>
+</div>
+<br />
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/hist_news_variables.png" alt="Histogran news variables" width="900" height="300">
+  </a>
+</div>
+<br />
 
 
 
+## Final data processing
+
+* **Irrelevant data**:
+
+  * I will remove from the training and test sets the columns that were excluded according to the above analyses.
+
+* **Null or missing data**:
+
+  * **Numeric data**: The numeric data from the columns:
+
+    * revol_util
+
+    * tot_coll_amt
+
+    * tot_cur_bal
+
+    * total_rev_hi_lim
+
+  * will be imputed using the median, a sensible choice for filling in missing data, especially considering the presence of outliers in the numeric data in this set.
+
+  * **Categorical data**: We have no missing values ​​in our categorical columns.
+
+  * **Note**:
+
+    I chose to impute the null data to preserve the natural distribution of the data in this dataset.
+
+* **New features**:
+
+  * New columns will be created right after the null data is discarded, preventing these new columns from containing null data.
+
+* **Correlated variables**:
+
+  * These columns will be removed from our training data, so that there is no noise caused by correlation in our training since they are correlated with the new features:
+
+    * revolution_bal
+
+    * annual_inc
+
+  * **loan_amnt x installment**:
+
+
+  * I will choose to remove the **installment** column and keep the **loan_amnt** column, since this column has a stronger relationship with the payment statuses.
+
+# 4-Modeling
+
+* **Categorical Variables**: 
+  
+  * For ordinal categorical variables, I will use the Ordinal Encoder. For nominal variables, the Target Encoder will be applied, with the aim of not increasing the dimensionality of our data, and also considering that this approach brings us more information for our training data because the variables are encoded according to their distributions in relation to the target variable, which in this case will be the **loan_status**.
+
+* **Numerical Variables**: 
+  
+  * For numerical data, we will apply the normalization technique using MinMaxScaler. This choice aims to preserve the distribution of the data, considering that our distributions are almost all asymmetric, so opting for MinMaxScaler makes more sense in this context.
+
+  * The decision to use MinMaxScaler also takes into account the fact that our data has a significant amount of outliers. However, these outliers are part of the natural distribution of the institution's data. Therefore, the objective of this choice is to allow the model to learn from this data.
+
+* **Machine learning algorithms that will be used in this project**:
+
+  * The basis of this project is a model with PyTorch, but first, to compare and verify the most suitable models for our data, a model will be created in each of the algorithms below:
+
+  * Random Forest Classifier
+
+  * KNN
+
+  * Logistic Regression
+
+  * XGBoost
+
+  * Next, a network will be created in PyTorch. This network will undergo an initial training, in which we will evaluate the metrics and the results obtained.
+
+* **How will the metrics for the evaluation stage be chosen?**:
+
+  * The metrics that will be considered as a parameter to determine the best model and its effectiveness will be **AUC-ROC** together with **Accuracy**. Since we are dealing with binary classes and we have a minority class, which are the loans classified as unpaid, the accuracy of the model would not be enough to determine whether the model converged adequately with its classifications.
+
+  * Therefore, I will be using the **AUC-ROC** metric as the first criterion as a main parameter to determine the effectiveness of the model. This metric takes into account the correct classification of the positive and negative classes, since in a dataset where we have an imbalance in the classes, it is common and natural to expect that the model has a tendency to classify most of the training and testing data with the majority class. Therefore, we will use this metric as a fundamental parameter for the evaluation and analysis of our models, so that we have a good control over false positives and false negatives, in order to reduce them as much as possible.
+
+  * In the background, I will use the accuracy of the model to consider whether there is good predictability of the model with training, validation and testing data.
+
+* **Hypertune | Finetune**:
+
+  * After this initial training, we will **hypertune** the model, adjusting the hyperparameters and the number of neurons in the hidden layers.
+
+  * Later, we will **finetune**, adjusting the learning level per epoch of the model.
+
+* **Test data**
+
+  * Finally, we will move on to the model evaluation stage, in which we will check its performance on the test data.
+
+## Separating features and labels 
+
+```
+  train_data['loan_status'] = train_data['loan_status'].map({'Fully Paid': 0, 'Charged Off': 1}).astype(int)
+  test_data['loan_status'] = test_data['loan_status'].map({'Fully Paid': 0, 'Charged Off': 1}).astype(int)
+```
+```
+  # Train
+  X_train = train_data.drop(columns = ['loan_status']) 
+  y_train =  train_data['loan_status'].copy()
+  
+  # Test
+  X_test = test_data.drop(columns = ['loan_status']) 
+  y_test =  test_data['loan_status'].copy()
+```
+
+## Preprocessing
+
+### Categorical Features
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- ROADMAP -->
 ## Roadmap
 
@@ -679,22 +1014,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/otnielgomes
 [product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+
 
 [Azure Databricks]: https://img.shields.io/badge/Databricks-FF3621?style=for-the-badge&logo=Databricks&logoColor=white
 [Azure Databricks-url]:  https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account?icid=databricks
