@@ -1305,7 +1305,7 @@ At this stage of the project, some models were tested to verify the performance 
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/good_grades.png" alt="Good Grades" width="1100" height="450">
+    <img src="images/good_grades.png" alt="Good Grades" width="1100" height="400">
   </a>
 </div>
 <br />
@@ -1315,7 +1315,7 @@ At this stage of the project, some models were tested to verify the performance 
 <br />
 <div align="left">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/bad_grades.png" alt="Bad Grades" width="1100" height="450">
+    <img src="images/bad_grades.png" alt="Bad Grades" width="1100" height="400">
   </a>
 </div>
 <br />
