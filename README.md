@@ -1132,7 +1132,7 @@ At this stage of the project, some models were tested to verify the performance 
 
 ## Hypertunning
 
-```py
+```print
     Best trial config: {'l1': 2, 'l2': 64, 'l3': 8, 'lr': 0.0006325676320034128, 'batch_size': 256}
     
     Best trial final validation loss: 0.5790479942864063
@@ -1193,7 +1193,265 @@ At this stage of the project, some models were tested to verify the performance 
 
 * In the next and final phase of this project, we will seek a solution to generate a balance in the classification of our model regarding whether or not to pay the requested loan, with the final decision in the organization based on our analysis and results.
 
+# 6-Deployment
+
+* Considering that the model has a prediction **Accuracy of 66.42%** on the test data and the **ACU-ROC of 71.08%**, during the classification process some limits and parameters will be defined using some variables that were fundamental in our data analysis process.
+
+* In addition to these variables helping us and giving us a broader view of our model's classifications, they will also help us give feedback to our potential client in case of approval or disapproval.
+
+* I will use the training data to define these limits so that there is no leakage with the test data.
+
+* To implement our final model, I will first consider the classification of our model and then consider the following variables to validate these classifications:
+
+* **ability_to_pay**: The loan applicant's ability to pay considering his/her monthly salary x the loan installment.
+
+* **dti**: The borrower's debt ratio.
+
+* **score_cr** : The applicant's loan score based on FICO score criteria.
+
+* **sub_grade** : The risk rating of the loan made by Lending Club.
+
+* **expen_cr_inc** : The rating of the applicant's level of revolving credit utilization.
+
+#### So our classifier will be as follows:
+
+* When the model classifies the loans as **fully paid** and the applicant has the following scores and classifications:
+
+  
+  * **ability_to_pay**  < 10%
+
+    * OR
+
+  * **dti** < 15%
+
+    * OR
+
+  * **score_cr** > 700
+
+    * OR
+
+  * **expen_cr_inc** == 'A'
+
+    * AND
+
+  * **sub_grade** in ['A1', 'A2', 'A3', 'A4', 'A5', 'B1', 'B2', 'B3', 'B4', 'B5'] # **good_grades**
+
+* This loan will be classified as:
+
+  * **very low risk of default**. 
+
+  * *Therefore it will be automatically approved*
+
+* And if the model classifies the loans as fully paid and the applicant **does not have the scores and classifications above**:
+
+* This loan will be classified as:
+   
+  * **Low risk of default**. 
+
+   * *Therefore, it will be forwarded for analysis by the manager to be approved or not*
+
+* When the model classifies the loans as **defaulters** and the applicant has the following scores and classifications:
+
+  * **ability_to_pay**  > 10%
+
+    * OR
+
+  * **dti** > 15%
+
+    * OR
+
+  * **score_cr** <= 700
+
+    * OR
+
+  * **expen_cr_inc** == 'B' or 'C' or 'D'
+
+    * AND
+
+  * **sub_grade** in ['E1', 'E2', 'E4', 'E5', 'F1', 'F2', 'F3', 'F4', 'F5', 'G1', 'G2', 'G3', 'G4', 'G5'] # **bad_grades**
+
+* This loan will be classified as:
+  
+  * **Very high risk of default**. 
+  
+  * *Therefore, it will be automatically rejected*
+
+* And if the model classifies the loans as as defaulters and the applicant **does not have the scores and classifications above**:
+
+* This loan will be classified as:
+
+  * **Medium risk of default**.   
+
+  * *Therefore, it will be forwarded for analysis by the manager to be approved or not*
+ 
+  <br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/hist_deploy.png" alt="Histogran deploy" width="1000" height="350">
+  </a>
+</div>
+<br />
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/count_deploy.png" alt="Count Deploy" width="1000" height="350">
+  </a>
+</div>
+<br />
+
+### Good Grades
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/good_grades.png" alt="Good Grades" width="1100" height="450">
+  </a>
+</div>
+<br />
+
+### Bad Grades
+
+<br />
+<div align="left">
+  <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
+    <img src="images/bad_grades.png" alt="Bad Grades" width="1100" height="450">
+  </a>
+</div>
+<br />
+
+# Final Classifier
+
+```py
+
+  def loan_checker(loan_for_class, device = 'cpu'):
+      
+      # Data preprocessing
+      data_preprocessed = preprocessor_loaded.transform(loan_for_class)
+      
+      # Loading Network Trained
+      net = model_loaded.to(device)
+  
+      # Net to eval
+      net.eval()
+      # Loading Dataset
+      X = torch.from_numpy(data_preprocessed.astype(np.float32))
+      X = X.to(device)
+      pred = net(X)
+      pred = torch.sigmoid(pred).cpu()
+      
+      probabilities  = pred.item()
+  
+      # Convert probabilities to binary values ​​(0 or 1) using a threshold
+      thershold = 0.5
+      binary_pred = (pred >= thershold).int().item()
+      
+      print(f'\nThis loan has a: {round((probabilities * 100), 2)}% chance of defaulting')
+    
+      model_prediction = binary_pred
+      # expen_cr_inc
+      bad_expen = ['D']
+      good_expen = ['A']
+      expen_cr_inc = loan_for_class['expen_cr_inc'].item()
+      # sub_grade
+      bad_grades = ['E1', 'E2', 'E4', 'E5', 'F1', 'F2', 'F3', 'F4', 'F5', 'G1', 'G2', 'G3', 'G4', 'G5',]
+      good_grades = ['A1', 'A2', 'A3', 'A4', 'A5', 'B1', 'B2', 'B3', 'B4', 'B5',]
+      sub_grade = loan_for_class['sub_grade'].item()
+  
+      # dti
+      dti = loan_for_class['dti'].item()
+      # score_cr
+      score_cr = loan_for_class['score_cr'].item()
+      # ability_to_pay
+      ability_to_pay = loan_for_class['ability_to_pay'].item()
+  
+      if model_prediction == 1:
+  
+          if (ability_to_pay > 10 or score_cr < 700 or dti > 15 or expen_cr_inc in bad_expen) and (sub_grade in bad_grades):
+              print(f'Loan denied! ---  High risk of default loan')
+              print(f'\nThis loan has been considered high risk because some of the scores below do not meet the criteria required for loan approval.')
+              print(f"\nexpen_cr_inc: {expen_cr_inc} >>>> {'Not OK' if expen_cr_inc in bad_expen else 'OK'}")
+              print(f"score_cr: {score_cr} >>>> {'Not OK' if score_cr < 700 else 'OK'}")
+              print(f"ability_to_pay: {ability_to_pay} >>>> {'Not OK' if ability_to_pay > 10 else 'OK'}")
+              print(f"dti: {dti} >>>> {'Not OK' if dti > 15 else 'OK'}")
+              print(f"\n### sub_grade ###: {sub_grade} >>>> {'Not OK' if sub_grade in bad_grades else 'OK'}")
+          else:
+              print(f'Approval subject to manager analysis! --- Medium risk loan of default')
+              print(f'\nThis loan has been considered medium risk because some of the scores below meet the criteria required for loan approval.')
+              print(f"\nexpen_cr_inc: {expen_cr_inc} >>>> {'Not OK' if expen_cr_inc in bad_expen else 'OK'}")
+              print(f"score_cr: {score_cr} >>>> {'Not OK' if score_cr < 700 else 'OK'}")
+              print(f"ability_to_pay: {ability_to_pay} >>>> {'Not OK' if ability_to_pay > 10 else 'OK'}")
+              print(f"dti: {dti} >>>> {'Not OK' if dti > 15 else 'OK'}")
+              print(f"\n### sub_grade ###: {sub_grade} >>>> {'Not OK' if sub_grade in bad_grades else 'OK'}")
+      
+  
+      if model_prediction == 0:
+  
+          if (ability_to_pay < 10 or score_cr >= 700 or dti < 15 or expen_cr_inc in (good_expen)) and (sub_grade in(good_grades)):
+              print(f'Loan approved! ---  Very low default risk loan')
+              print(f'\nThis loan has been deemed very low risk because some of the scores below meet the criteria required for loan approval.')
+              print(f"\nexpen_cr_inc: {expen_cr_inc} >>>> {'OK' if expen_cr_inc in good_expen else 'Not OK'}")
+              print(f"score_cr: {score_cr} >>>> {'OK' if score_cr >= 700 else 'Not OK'}")
+              print(f"ability_to_pay: {ability_to_pay} >>>> {'OK' if ability_to_pay <= 10 else 'Not OK'}")
+              print(f"dti: {dti} >>>> {'OK' if dti <= 15 else 'Not OK'}")
+              print(f"\n### sub_grade ###: {sub_grade} >>>> {'OK' if sub_grade in good_grades else 'Not OK'}")
+          else:
+              print(f'Approval subject to manager analysis! --- Low risk of default loan')
+              print(f'\nThis loan has been deemed low risk because some of the scores below do not meet the criteria required for loan approval.')
+              print(f"\nexpen_cr_inc: {expen_cr_inc} >>>> {'OK' if expen_cr_inc in good_expen else 'Not OK'}")
+              print(f"score_cr: {score_cr} >>>> {'OK' if score_cr >= 700 else 'Not OK'}")
+              print(f"ability_to_pay: {ability_to_pay} >>>> {'OK' if ability_to_pay <= 10 else 'Not OK'}")
+              print(f"dti: {dti} >>>> {'OK' if dti <= 15 else 'Not OK'}")
+              print(f"\n### sub_grade ###: {sub_grade} >>>> {'OK' if sub_grade in good_grades else 'Not OK'}")
+  
+```
+
+### Exemple output
+
+```print
+    This loan has a: 46.75% chance of defaulting
+    Loan approved! ---  Very low default risk loan
+    
+    This loan has been deemed very low risk because some of the scores below meet the criteria required for loan approval.
+    
+    expen_cr_inc: D >>>> Not OK
+    score_cr: 716.67 >>>> OK
+    ability_to_pay: 11.26 >>>> Not OK
+    dti: 27.65 >>>> Not OK
+    
+    ### sub_grade ###: B2 >>>> OK
+```
+
+## Final considerations:
+
+## **We can make the following considerations regarding loan classifications**:
+
+### **Very low risk:** 
+
+* These are loans classified as paid. The selected indicators are in accordance with the rules of our classifier, which allows us to offer better interest rates to this borrower and possibly increase the requested loan amount.
+
+* We have an accuracy of **66.89%** for this class of the model. We can consider the rules determined using the variable **'sub_grade'** as the main parameter in the classifier rules. **'good_grades'** have a probability of default that varies from **3.52% to 16.05%**. Therefore, the chances of loans classified under these terms becoming defaulted are very low.
+
+### **Low risk:** 
+
+* These are loans classified as paid. However, the selected indicators are not in accordance with the rules of our classifier. Therefore, we must consider the borrower's scores and classifications to verify the possibility of approval. In case of approval or not, we have the indicators to justify to our clients the reason for the decision. In cases of approval, we can reduce the amount requested to prevent possible fraud. In case of denial, we can present the indicators that the potential client needs to improve in order to have their loan approved in the future.
+
+* We have an accuracy of **66.89%** for this class of the model. We can consider the rules determined using the variable **'sub_grade'** as the main parameter in the classifier rules. Since these loans are outside the **goods_grades** we can understand that these loans that received this classification need a more careful analysis considering the other indicators.
+
+### **Medium risk:** 
+
+* These are loans classified as defaulted. However, the selected indicators are in accordance with the rules of our classifier. Therefore, we must consider the borrower's scores and classifications to verify the possibility of approval. Whether approved or not, we have the indicators to justify the decision to our clients. In cases of approval, we can reduce the amount requested to prevent possible fraud. In cases of denial, we can present the indicators that the potential client needs to improve in order to have their loan approved in the future.
+
+* We have an accuracy of **63.87%** for this class of the model. We can consider the rules determined using the variable **'sub_grade'** as the main parameter in the classifier rules. Since these loans are outside the **bad_grades** we can understand that these loans that received this classification need a more careful analysis considering the other indicators.
+
+### **Very high risk:** 
+
+* These are loans classified as defaulted, and the indicators indicate that they will probably not be paid. Therefore, these loans will be denied, and we will use our indicators to justify the reasons for non-approval.
+
+* We have an accuracy of **63.87%** for this class of the model. We can consider the rules determined using the **'sub_grade'** variable as the main parameter in the classifier rules. **'bad_grades'** have a default probability ranging from **31.25% to 47.66%**. Therefore, the chances of loans classified under these terms becoming defaulted are very high.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 <!-- ROADMAP -->
 ## Roadmap
 
