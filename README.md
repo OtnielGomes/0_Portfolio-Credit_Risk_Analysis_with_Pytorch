@@ -145,6 +145,11 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
+0-**Clone the repo**
+   ```sh
+   git clone https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch
+   ```
+
 ### Prerequisites
 
 * Data Bricks - This project was developed in the Databricks environment, so the entire project structure is compatible with AzureDatabricks and Databricks Community. Below I will leave the link to create an account in the Databricks Community where it is free and at no cost and you will be able to run a copy of this project perfectly.
