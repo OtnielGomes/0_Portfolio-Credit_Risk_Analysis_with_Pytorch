@@ -1,14 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a id="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -31,7 +21,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch">
-    <img src="images/logo.jpg" alt="Logo" width="200" height="100">
+    <img src="images/logo.jpg" alt="Logo" width="700" height="350">
   </a>
 
 <h3 align="center"> Credit Risk Analysis - Lending Club </h3>
@@ -1506,9 +1496,9 @@ Distributed under the MIT License. See [`LICENSE.txt`](https://github.com/Otniel
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Otniel Gomes - [Linkedin](https://www.linkedin.com/in/otnielgomes/) - otniel.g.andrade@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch](https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
