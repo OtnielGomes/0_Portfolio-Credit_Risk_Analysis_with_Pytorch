@@ -55,7 +55,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#pre-requisites">Pre-requisites</a></li>
         <li><a href="#installation-of-librarys">Installation of librarys</a></li>
       </ul>
     </li>
@@ -139,7 +139,7 @@
    git clone https://github.com/OtnielGomes/0_Portfolio-Credit_Risk_Analysis_with_Pytorch
    ```
 
-### Prerequisites
+### Pre-requisites
 
 * Data Bricks - This project was developed in the Databricks environment, so the entire project structure is compatible with AzureDatabricks and Databricks Community. Below I will leave the link to create an account in the Databricks Community where it is free and at no cost and you will be able to run a copy of this project perfectly.
 Link for create acount :
@@ -1047,7 +1047,7 @@ The **score_cr** variable is based on the rules of the FICO Score. This score ta
 </div>
 <br />
 
-#5-Evaluation
+# 5-Evaluation
 
 ### Considerations on initial training:
 
