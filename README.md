@@ -1201,6 +1201,8 @@ At this stage of the project, some models were tested to verify the performance 
 
 * In the next and final phase of this project, we will seek a solution to generate a balance in the classification of our model regarding whether or not to pay the requested loan, with the final decision in the organization based on our analysis and results.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 # 6-Deployment
 
 * Considering that the model has a prediction **Accuracy of 66.42%** on the test data and the **ACU-ROC of 71.08%**, during the classification process some limits and parameters will be defined using some variables that were fundamental in our data analysis process.
