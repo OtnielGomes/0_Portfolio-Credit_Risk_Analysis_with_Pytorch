@@ -283,6 +283,8 @@ The other payment statuses have not yet had final payment completion because the
 
 * Offer more services to this borrower.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 # 2-Data Understanding
 
 ## The dataset
@@ -373,6 +375,8 @@ The payment statuses below will not be used because they do not comply with the 
   </a>
 </div>
 <br />
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # 3-Data Preparation
 
@@ -602,9 +606,6 @@ It is possible to note that loans that were **fully paid** generate a gross inte
   </a>
 </div>
 <br />
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Cheking the locations of the institution's customers
 
@@ -868,6 +869,8 @@ The **score_cr** variable is based on the rules of the FICO Score. This score ta
 
   * I will choose to remove the **installment** column and keep the **loan_amnt** column, since this column has a stronger relationship with the payment statuses.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 # 4-Modeling
 
 * **Categorical Variables**: 
@@ -1055,6 +1058,8 @@ The **score_cr** variable is based on the rules of the FICO Score. This score ta
   </a>
 </div>
 <br />
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # 5-Evaluation
 
@@ -1452,6 +1457,7 @@ At this stage of the project, some models were tested to verify the performance 
 * These are loans classified as defaulted, and the indicators indicate that they will probably not be paid. Therefore, these loans will be denied, and we will use our indicators to justify the reasons for non-approval.
 
 * We have an accuracy of **63.87%** for this class of the model. We can consider the rules determined using the **'sub_grade'** variable as the main parameter in the classifier rules. **'bad_grades'** have a default probability ranging from **31.25% to 47.66%**. Therefore, the chances of loans classified under these terms becoming defaulted are very high.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
