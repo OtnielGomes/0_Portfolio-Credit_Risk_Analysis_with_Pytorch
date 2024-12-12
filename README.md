@@ -59,7 +59,16 @@
         <li><a href="#installation-of-librarys">Installation of librarys</a></li>
       </ul>
     </li>
-    <li><a href="#the-project">The Project</a></li>
+    <li>
+      <a href="#the-project">The Project</a></li>
+      <ul>
+        <li><a href="#1-business-understanding">1-Business understanding</a></li>
+        <li><a href="#2-data-understanding">2-Data Understanding</a></li>
+        <li><a href="#3-data-preparation">3-Data Preparation</a></li>
+        <li><a href="#4-modeling">4-Modeling</a></li>
+        <li><a href="#5-evaluation">5-Evaluation</a></li>
+        <li><a href="#6-deployment">6-Deployment</a></li>
+      </ul>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -107,7 +116,7 @@
   
     What best meets the business objectives?
   
-  * 6-**Implementation**:
+  * 6-**Deployment**:
   
     How do stakeholders access the results?
 
@@ -235,7 +244,7 @@ Link for create acount :
 
 
 <!-- USAGE EXAMPLES -->
-## The Project
+# The Project
 
 # 1-Business Understanding
 
