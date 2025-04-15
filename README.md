@@ -257,7 +257,7 @@ During a loan application, the company makes only two decisions: grant the loan 
 We will only use the records with the following final payment statuses:
 
 * Fully Paid
-* Downloaded
+* Charged Off
 
 The other payment statuses have not yet had final payment completion because they have not yet been completed, so there is no possibility of classifying them.
 
